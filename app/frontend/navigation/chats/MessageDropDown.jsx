@@ -19,7 +19,7 @@ import MessageChatHeader from "./MessageChatHeader";
 import MessageChatList from "./MessageChatList";
 import MessageFooter from "./MessageFooter";
 
-const MessageDropDown = () => {
+const MessageDropDown = ({onMessageClick}) => {
   const [Messages] = useAtom(messagesAtom);
   const [messagesOpened, setMessagesOpened] = useAtom(messageOpenAtom);
   const [unreadMessagesCount, setUnreadMessagesCount] = useAtom(unreadMesageCountAtom);
@@ -68,7 +68,7 @@ const MessageDropDown = () => {
 
           <PopoverContent>
                 <MessageChatHeader/>
-                <MessageChatList/>
+                <MessageChatList onMessageClick={onMessageClick}/>
                 <MessageFooter/>
           </PopoverContent>
         </Popover>

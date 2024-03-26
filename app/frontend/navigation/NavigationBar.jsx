@@ -3,7 +3,7 @@ import {Navbar,NavbarContent,NavbarItem} from "@nextui-org/react"
 import MessageDropDown from './chats/MessageDropDown'
 
 
-const NavigationBar = () => {
+const NavigationBar = ({onMessageClick}) => {
   return (
     <div>
       <Navbar
@@ -11,7 +11,7 @@ const NavigationBar = () => {
       className='bg-blue-700'>
         <NavbarContent justify='end'>
             <NavbarItem className='flex items-center'>
-                <MessageDropDown/>
+                <MessageDropDown onMessageClick={onMessageClick}/>
             </NavbarItem>
         </NavbarContent>
       </Navbar>

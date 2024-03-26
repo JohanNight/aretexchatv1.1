@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAtom } from "jotai";
 
 import {
@@ -15,11 +15,12 @@ import { RxDotFilled } from "react-icons/rx";
 
 
 
-const MessageChatList = () => {
+const MessageChatList = ({onMessageClick}) => {
   const [showUnreadMessages] = useAtom(showUnreadMessageAtom);
   const [messageType] = useAtom(messageTypeAtom);
   const [messageOpen, setMessageOpen] = useAtom(messageOpenAtom);
   const [messages, setMessages] = useAtom(messagesAtom);
+
 
   const unReadMessages = showUnreadMessages
     ? messages.filter((notification) => {
@@ -39,10 +40,87 @@ const MessageChatList = () => {
       <Listbox
         items={filteredMessages}
         aria-label="Chat Messages"
-        onAction={(item) => console.log(item)}
+        onAction={(item) => onMessageClick(item)}
         className=""
       >
-        {(item) => {
+        {(item)=>(
+            <ListboxItem
+            textValue={item.name}
+            key={item.id}
+            endContent={
+                item.unread ? (
+                    <div className="text-blue-400">
+                        <RxDotFilled size={25}/>
+                    </div>
+                ) :(
+                    <div>
+                        <VscBlank size={22}/>
+                    </div>
+                )
+            }>
+                {item.unread ? (
+                    <div key={item.id} className="flex gap-4 items-center">
+                        <div className="">
+                            {item.isOnline ? ( 
+                                <Badge content=""
+                                color="success"
+                                shape="circle"
+                                placement="bottom-right">
+                                    <Avatar src={item.userImage} radius="full" size="md"/>
+                                </Badge>
+                            ):(
+                                <Avatar src={item.userImage} radius="full" size="md"/>
+                            )}
+                        </div>
+                        <div className="flex flex-col gap-1 whitespace-pre-line">
+                            <div>
+                                <p className="font-extrabold text-sm md:text-[14px] leading-tight">
+                                    {item.name}
+                                </p>
+                            </div>
+                            <div className="flex w-full justify-between items-center gap-1 overflow-hidden ">
+                                <p className="font-semibold text-sm truncate">
+                                    {item.message}
+                                </p>
+                                <p className="font-semibold text-xs text-gray-700" >
+                                    {item.dateTime}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ) :
+                (<div key={item.id} className="flex gap-4 items-center">
+                    <div>
+                        {item.isOnline ? ( 
+                            <Badge content=""
+                            color="success"
+                            shape="circle"
+                            placement="bottom-right">
+                                <Avatar src={item.userImage} radius="full" size="md"/>
+                            </Badge>)
+                            :( <Avatar src={item.userImage} radius="full" size="md"/>
+                            )}
+                    </div>
+                    <div className="flex flex-col gap-1 whitespace-pre-line">
+                            <div className="font-extrabold text-sm md:text-[14px] leading-tight">
+                                <p className="font-extrabold text-sm md:text-[14px] leading-tight">
+                                    {item.name}
+                                </p>
+                            </div>
+                            <div className="flex w-full justify-between items-center gap-1 overflow-hidden ">
+                                <p className="font-medium text-sm truncate text-gray-500">
+                                    {item.message}
+                                </p>
+                                <p className="font-medium  text-xs text-gray-400" >
+                                    {item.dateTime}
+                                </p>
+                            </div>
+                    </div>
+                </div>)}
+
+            </ListboxItem>
+        )}
+        {/* {(item) => {
           <ListboxItem
             textValue={item.name}
             key={item.id}
@@ -120,10 +198,12 @@ const MessageChatList = () => {
               </div>
             )}
           </ListboxItem>;
-        }}
+        }} */}
       </Listbox>
     </>
   );
 };
+
+
 
 export default MessageChatList;
