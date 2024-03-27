@@ -4,7 +4,7 @@ import React from "react";
 
 const LoginChatComponents = () => {
   const handleSignIn = () => {
-    signIn("google", { callbackUrl: "/app/frontend" });
+    signIn("google", { callbackUrl: "/frontend" });
   };
 
   return (
