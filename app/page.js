@@ -2,13 +2,15 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { Provider } from "jotai";
 
-import NavigationPage from '@/app/frontend/page'
+import Login from '@/app/login/page';
+
+
 export default function Home() {
   return (
     <NextUIProvider>
       <Provider>
         <main className="w-full h-screen">
-          <NavigationPage/>
+          <Login/>
         </main>
       </Provider>
     </NextUIProvider>
